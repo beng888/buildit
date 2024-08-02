@@ -1,0 +1,3 @@
+<form hx-post=\"/hello\" method=\"POST\" hx-target=\"#hello-container\"><input class=\"border border-8 border-red-500\" id=\"name\" name=\"name\" type=\"text\"> <button type=\"submit\">Submit</button> <button class=\"btn\">Button</button></form><div id=\"hello-container\"></div>
+<div>Hello, 
+</div>
