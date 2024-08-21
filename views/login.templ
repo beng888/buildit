@@ -1,0 +1,14 @@
+package views
+
+import (
+	"github.com/beng888/buildit/components"
+	"github.com/markbates/goth"
+)
+
+templ Login() {
+	@Base(goth.User{}) {
+		<div class="flex flex-col justify-center items-center">
+			@components.LoginModalComponent("")
+		</div>
+	}
+}

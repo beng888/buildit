@@ -1,0 +1,36 @@
+package components
+
+import (
+	"github.com/beng888/buildit/ui"
+	"github.com/markbates/goth"
+)
+
+templ dashboardHeaderMenuButton(user goth.User) {
+	<img src={ user.AvatarURL } alt="avatar" class="rounded-full h-12 w-12 cursor-pointer"/>
+}
+
+templ dashboardHeaderContent(user goth.User) {
+	<div>
+		@ui.Dropdown(dashboardHeaderMenuButton(user), templ.Attributes{"class": "top-12 right-0 p-4"}) {
+			<div class="mb-2">
+				{ user.Email }
+			</div>
+			@ui.Button(templ.Attributes{"href": "/logout", "variant": "outlined"}) {
+				Logout
+			}
+		}
+	</div>
+}
+
+templ DashboardHeader(user goth.User) {
+	<header>
+		@ui.NavBar() {
+			<ul class="hidden items-center gap-4 md:flex">
+				@dashboardHeaderContent(user)
+			</ul>
+			<ul x-cloak x-show="mobileMenuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu" class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-slate-300 rounded-b-xl border-b border-slate-300 bg-slate-100 px-6 pb-6 pt-20 dark:divide-slate-700 dark:border-slate-700 dark:bg-slate-800 md:hidden">
+				@dashboardHeaderContent(user)
+			</ul>
+		}
+	</header>
+}

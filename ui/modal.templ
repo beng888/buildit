@@ -1,0 +1,112 @@
+package ui
+
+import "fmt"
+
+templ Modal(id string, component templ.Component, attrs templ.Attributes) {
+	<div x-data={ fmt.Sprintf("{%s: false}", id) }>
+		{ children... }
+		<div x-cloak x-show={ fmt.Sprintf("%s", id) } x-transition.opacity.duration.200ms x-trap.inert.noscroll={ fmt.Sprintf("%s", id) } @keydown.esc.window={ fmt.Sprintf("%s = false", id) } @click.self={ fmt.Sprintf("%s = false", id) } class={ "fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8 ", GetAttrValue(attrs["class"]) } role="dialog" aria-modal="true" aria-labelledby={ id }>
+			<!-- Modal Dialog -->
+			<div x-show={ fmt.Sprintf("%s", id) } x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start={ getModalTransition(attrs).start } x-transition:enter-end={ getModalTransition(attrs).end } class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+				@component
+			</div>
+		</div>
+	</div>
+}
+
+// GET MODAL TRANSITION
+
+var transitionStart = map[string]string{
+	"fade-in":    "",
+	"scale-up":   "scale-50",
+	"scale-down": "scale-110",
+	"slide-up":   "translate-y-8",
+	"slide-down": "-translate-y-8",
+	"unfold":     "scale-y-0",
+}
+
+var transitionEnd = map[string]string{
+	"fade-in":    "",
+	"scale-up":   "scale-100",
+	"scale-down": "scale-100",
+	"slide-up":   "translate-y-0",
+	"slide-down": "scale-100",
+	"unfold":     "scale-y-100",
+}
+
+type Transition struct {
+	start string
+	end   string
+}
+
+func getModalTransition(attrs templ.Attributes) Transition {
+	transition := ""
+
+	if value, ok := attrs["transition"].(string); ok {
+		switch value {
+		case "scale-up":
+			transition = "scale-up"
+		case "scale-down":
+			transition = "scale-down"
+		case "slide-up":
+			transition = "slide-up"
+		case "slide-down":
+			transition = "slide-down"
+		case "unfold":
+			transition = "unfold"
+		default:
+			transition = "fade-in"
+		}
+	}
+
+	return Transition{
+		start: "opacity-0 " + transitionStart[transition],
+		end:   "opacity-100 " + transitionEnd[transition],
+	}
+
+}
+
+// // GET MODAL PLACEMENT
+
+// var PlacementVertical = map[string]string{
+// 	"start":  "items-start",
+// 	"center": "items-center",
+// 	"end":    "items-end",
+// }
+
+// var PlacementHorizontal = map[string]string{
+// 	"start":  "justify-start",
+// 	"center": "justify-center",
+// 	"end":    "justify-end",
+// }
+
+// func getModalPlacementPosition(value string) string {
+// 	switch value {
+// 	case "start":
+// 		return "start"
+// 	case "end":
+// 		return "end"
+// 	default:
+// 		return "center"
+// 	}
+// }
+
+// func getModalVerticalPlacement(attrs templ.Attributes) string {
+// 	position := "center"
+
+// 	if value, ok := attrs["placement-vertical"].(string); ok {
+// 		position = getModalPlacementPosition(value)
+// 	}
+
+// 	return PlacementVertical[position]
+// }
+
+// func getModalHorizontalPlacement(attrs templ.Attributes) string {
+// 	position := "center"
+
+// 	if value, ok := attrs["placement-horizontal"].(string); ok {
+// 		position = getModalPlacementPosition(value)
+// 	}
+
+// 	return PlacementHorizontal[position]
+// }

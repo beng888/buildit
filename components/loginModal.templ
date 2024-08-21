@@ -1,0 +1,41 @@
+package components
+
+import (
+	"fmt"
+	"github.com/beng888/buildit/ui"
+)
+
+templ LoginModalComponent(id string) {
+	<!-- Dialog Header -->
+	<div class="flex relative">
+		@ui.Button(templ.Attributes{"icon": "material-symbols--close", "color": "alternate", "class": "absolute right-0 w-8 h-8 !p-1 m-1 rounded-full", "@click": fmt.Sprintf("%s = false", id), "aria-label": "close modal", "icon-only": "true"})
+		<div class="flex flex-col items-center gap-4 p-8 flex-1">
+			<h3 id={ id } class="font-semibold tracking-wide text-black dark:text-white">
+				Log in or sign up in seconds
+			</h3>
+			<p>
+				Use your email or another service to continue with Canva (it’s free)!
+			</p>
+			@ui.Button(templ.Attributes{"href": "/auth/google", "variant": "outlined", "color": "inverse", "icon": "devicon--google", "icon-class": "w-6 h-6", "class": "w-full justify-between", "children-class": "flex-1"}) {
+				Login with Google
+			}
+			@ui.Button(templ.Attributes{"href": "/auth/discord", "variant": "outlined", "color": "inverse", "icon": "logos--discord-icon", "icon-class": "w-6 h-6", "class": "w-full justify-between", "children-class": "flex-1"}) {
+				Login with Discord
+			}
+			@ui.Button(templ.Attributes{"href": "/auth/github", "variant": "outlined", "color": "inverse", "icon": "bi--github", "icon-class": "w-6 h-6", "class": "w-full justify-between", "children-class": "flex-1"}) {
+				Login with Github
+			}
+		</div>
+		<div class="flex-1">
+			<img src="/public/images/login-image.jpg" alt="login-image" class="object-cover h-full"/>
+		</div>
+	</div>
+}
+
+const id = "loginModal"
+
+templ LoginModal() {
+	@ui.Modal(id, LoginModalComponent(id), templ.Attributes{"transition": "scale-up"}) {
+		{ children... }
+	}
+}

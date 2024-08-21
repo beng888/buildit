@@ -1,0 +1,12 @@
+package views
+
+import (
+	"github.com/beng888/buildit/components"
+	"github.com/markbates/goth"
+)
+
+templ Dashboard(user goth.User) {
+	@Base(user) {
+		@components.DashboardHeader(user)
+	}
+}

@@ -1,7 +1,9 @@
 package views
 
+import "github.com/markbates/goth"
+
 templ HelloForm() {
-	@Base() {
+	@Base(goth.User{}) {
 		<form hx-post="/hello" method="POST" hx-target="#hello-container">
 			<input class="border border-8 border-red-500" id="name" name="name" type="text"/>
 			<button type="submit">Submit</button>

@@ -1,0 +1,7 @@
+<!-- Dialog Header --><div class=\"flex relative\">
+<div class=\"flex flex-col items-center gap-4 p-8 flex-1\"><h3 id=\"
+\" class=\"font-semibold tracking-wide text-black dark:text-white\">Log in or sign up in seconds</h3><p>Use your email or another service to continue with Canva (it’s free)!</p>
+Login with Google
+Login with Discord
+Login with Github
+</div><div class=\"flex-1\"><img src=\"/public/images/login-image.jpg\" alt=\"login-image\" class=\"object-cover h-full\"></div></div>

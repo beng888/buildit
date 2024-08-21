@@ -1,0 +1,5 @@
+<div x-data=\"{ isOpen: false, openedWithKeyboard: false }\" class=\"relative\" @keydown.esc.window=\"isOpen = false, openedWithKeyboard = false\"><div @click=\"isOpen = ! isOpen\" :aria-expanded=\"isOpen || openedWithKeyboard\">
+</div>
+<div x-cloak x-show=\"isOpen || openedWithKeyboard\" x-transition x-trap=\"openedWithKeyboard\" @click.outside=\"isOpen = false, openedWithKeyboard = false\" @keydown.down.prevent=\"$focus.wrap().next()\" @keydown.up.prevent=\"$focus.wrap().previous()\" class=\"
+\" role=\"menu\">
+</div></div>

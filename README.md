@@ -25,7 +25,7 @@ make run
 
 Create DB container
 ```bash
-make docker-run
+make docker-up
 ```
 
 Shutdown DB container

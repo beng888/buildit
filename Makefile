@@ -7,7 +7,7 @@ test:
 	@go test -v ./...
 	
 run: build
-	@air
+	@./bin/buildit
 
 tailwind:
 	@tailwindcss -i views/css/styles.css -o public/styles.css --watch
